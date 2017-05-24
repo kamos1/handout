@@ -29,20 +29,14 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   },
-  
+
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'postgres://alwgjshlbfavea:671c0675cac59368e2c5a9c3fd864d5b71276aebf9d5a9639ef0a12942f5a08f@ec2-54-197-232-155.compute-1.amazonaws.com:5432/d9lpul1fp5qipj',
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+    client: 'pg',
+    connection: process.env.DATABASE_URL + '?ssl=true',
     migrations: {
-      tableName: 'knex_migrations'
+      directory: './db/migrations'
     },
-    ssl: true
+    useNullAsDefault: true
   }
 
 };
