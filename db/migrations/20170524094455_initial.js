@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
       table.string('win');
       table.integer('user_id').unsigned()
       table.foreign('user_id')
-      .references('users.id');
+      .references('users.userID');
       table.timestamps(true);
     }),
 

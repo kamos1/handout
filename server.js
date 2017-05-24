@@ -8,7 +8,20 @@ const database = require('knex')(configuration)
 
 app.use(bodyParser.json());
 
+
+//verify app is working
+app.get('/', (request, response) => response.send('It works!'));
+
+app.post('/api/v1/users', ((request, response) => {
+    const { message } = request.body;
+    const id = Date.now();
+
+    response.status(200).json({ id, message })
+  })
+)
+
 app.get('/api/v1/users', (request, response) => {
+  console.log(request.body);
   database('users').select()
     .then(users => {
       response.status(200).json(users);
