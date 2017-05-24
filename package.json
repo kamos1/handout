@@ -1,0 +1,25 @@
+{
+  "name": "slack-app",
+  "version": "1.0.0",
+  "description": "This is a slackbot built on Node.js with an Express back-end that interacts with a React front-end. It was created during the fourth week of my third module at Turing.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamos1/slack-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamos1/slack-app/issues"
+  },
+  "homepage": "https://github.com/kamos1/slack-app#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "nodemon": "^1.11.0"
+  }
+}
