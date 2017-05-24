@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const environment = process.env.NODE_ENV || 'development';
-// const configuration = require('./knexfile')[environment];
-// const database = require('knex')(configuration)
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration)
 
 app.use(bodyParser.json());
 
@@ -37,6 +37,8 @@ app.get('/api/v1/losses', (request, response) => {
       console.error('error', error);
     })
 })
+
+
 
 app.listen(3000, () => {
   console.log('Server is listening on port 3000');
