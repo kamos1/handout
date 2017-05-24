@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kamos1/slack-app#readme",
   "dependencies": {
+    "@slack/client": "^3.9.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "knex": "^0.13.0",
