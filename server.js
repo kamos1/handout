@@ -1,26 +1,49 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+require('locus')
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration)
+const bookshelf = require('bookshelf')(database)
+const ModelBase = require('bookshelf-modelbase')(bookshelf);
 
-app.use(bodyParser.json());
+const User = ModelBase.extend({
+  tableName: 'users',
+  wins: () => this.hasMany(Win),
+  losses: () => this.hasMany(Loss)
+})
+const Win = ModelBase.extend({
+  tableName: 'wins',
+  wins: () => this.belongsTo(User)
+})
+const Loss = ModelBase.extend({
+  tableName: 'losses',
+  losses: () => this.belongsTo(User)
+})
+
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 3000));
 //verify app is working
 app.get('/', (request, response) => response.send('It works!'));
 
 app.post('/api/v1/users', (request, response) => {
-    console.log(request.body);
-    const text = request.body.text;
-    const id = Date.now();
+    const text = request.body.text.split(' ');
+    const user_id = text[0]
+    const type = text[1]
+    User.findOrCreate({ userID: user_id })
+      .then(() => {
+        if(type === 'win') {
+          Win.create({})
+        }
+      }
 
-
-
-    response.status(200).json({ id, text })
+    response.status(200).json({ user_id, type })
   })
 
 app.get('/api/v1/users', (request, response) => {

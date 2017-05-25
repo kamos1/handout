@@ -21,9 +21,14 @@
   "dependencies": {
     "@slack/client": "^3.9.0",
     "body-parser": "^1.17.2",
+    "bookshelf": "^0.10.3",
+    "bookshelf-modelbase": "^2.10.3",
     "express": "^4.15.3",
     "knex": "^0.13.0",
     "nodemon": "^1.11.0",
     "pg": "^6.2.3"
+  },
+  "devDependencies": {
+    "locus": "^2.0.1"
   }
 }
