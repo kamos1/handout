@@ -1,27 +1,28 @@
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 
-const app = express();
 const environment = process.env.DATABASE_URL || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration)
-
+const port = process.env.PORT || 3000
 app.use(bodyParser.json());
 
-app.set('port', process.env.PORT || 3000);
+// app.set('port', process.env.PORT || 3000);
 //verify app is working
 app.get('/', (request, response) => response.send('It works!'));
 
-app.post('/api/v1/users', ((request, response) => {
-    const { message } = request.body;
-    const id = Date.now();
-
-    response.status(200).json({ id, message })
-  })
-)
+// app.post('/api/v1/users', ((request, response) => {
+//     console.log(request.body);
+//     const { message } = request.body;
+//     const id = Date.now();
+//
+//     response.status(200).json({ id, message })
+//   })
+// )
 
 app.get('/api/v1/users', (request, response) => {
-  console.log(request.body);
+  // console.log(request.body);
   database('users').select()
     .then(users => {
       response.status(200).json(users);
@@ -51,6 +52,6 @@ app.get('/api/v1/losses', (request, response) => {
     })
 })
 
-app.listen(app.get('port'), () => {
-  console.log(`Server is running on ${app.get('port')}.`)
+app.listen(port, () => {
+  console.log(`Server is running on ${port}.`)
 })
