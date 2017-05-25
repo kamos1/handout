@@ -11,19 +11,17 @@ const ModelBase = require('bookshelf-modelbase')(bookshelf);
 
 const User = ModelBase.extend({
   tableName: 'users',
-  wins: () => this.hasMany(Win),
-  losses: () => this.hasMany(Loss)
+  outcomes: () => this.hasMany(Outcome),
 })
-const Win = ModelBase.extend({
-  tableName: 'wins',
-  wins: () => this.belongsTo(User)
+const Outcome = ModelBase.extend({
+  tableName: 'outcomes',
+  outcomes: () => this.belongsTo(User)
+  outcomes: () => this.belongsTo(Outcome_Type)
 })
-const Loss = ModelBase.extend({
-  tableName: 'losses',
-  losses: () => this.belongsTo(User)
+const Outcome_Type = ModelBase.extend({
+  tableName: 'outcome_types',
+  outcome_types: () => this.hasMany(Outcome)
 })
-
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
