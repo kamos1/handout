@@ -7,13 +7,14 @@ const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration)
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('port', (process.env.PORT || 3000));
 //verify app is working
 app.get('/', (request, response) => response.send('It works!'));
 
 app.post('/api/v1/users', ((request, response) => {
-    console.log(request.body);
+    console.log(request);
     const { message } = request.body;
     const id = Date.now();
 
