@@ -15,12 +15,12 @@ const User = ModelBase.extend({
 })
 const Outcome = ModelBase.extend({
   tableName: 'outcomes',
-  outcomes: () => this.belongsTo(User)
-  outcomes: () => this.belongsTo(Outcome_Type)
+  users: () => this.belongsTo(User),
+  outcome_types: () => this.belongsTo(Outcome_Type)
 })
 const Outcome_Type = ModelBase.extend({
   tableName: 'outcome_types',
-  outcome_types: () => this.hasMany(Outcome)
+  outcomes: () => this.hasMany(Outcome)
 })
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,11 +35,7 @@ app.post('/api/v1/users', (request, response) => {
     const user_id = text[0]
     const type = text[1]
     User.findOrCreate({ userID: user_id })
-      .then(() => {
-        if(type === 'win') {
-          Win.create({})
-        }
-      }
+      
 
     response.status(200).json({ user_id, type })
   })
