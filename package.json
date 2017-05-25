@@ -2,10 +2,10 @@
   "name": "slack-app",
   "version": "1.0.0",
   "description": "This is a slackbot built on Node.js with an Express back-end that interacts with a React front-end. It was created during the fourth week of my third module at Turing.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
