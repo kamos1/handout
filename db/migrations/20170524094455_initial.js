@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('losses');
       table.integer('user_id').unsigned()
-      table.foreign('user_id')
+      table.foreign('user-id')
       .references('users.id');
       table.timestamps(true);
     })
