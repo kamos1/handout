@@ -13,14 +13,15 @@ app.set('port', (process.env.PORT || 3000));
 //verify app is working
 app.get('/', (request, response) => response.send('It works!'));
 
-app.post('/api/v1/users', ((request, response) => {
+app.post('/api/v1/users', (request, response) => {
     console.log(request);
     const { message } = request.body;
     const id = Date.now();
 
-    response.status(200).json({ id, message })
+
+
+    response.status(200).json({ id, request })
   })
-)
 
 app.get('/api/v1/users', (request, response) => {
   console.log(request.body);
