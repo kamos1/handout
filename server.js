@@ -31,8 +31,8 @@ app.get('/', (request, response) => response.send('It works!'));
 
 app.post('/add', (request, response) => {
     const text = request.body.text.split(' ');
-    const user_id = text[0]
-    const type = text[1]
+    const type = text[0]
+    const user_id = text[1]
     var fixType = type.replace(/win',/i, 'win');
     let outcome_type_id;
 
@@ -42,14 +42,14 @@ app.post('/add', (request, response) => {
       .then((user) => {
         Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
       })
-      .then(() => console.log('finish'))
+      .then(() => response.status(200).send(body))
+      .catch((error) => response.status(500).send(error))
 
     const body = {
       response_type: "in_channel",
-      text: `${type} recieved a ${user_id}`
-    }
-
-    response.status(200).send(body);
+      text: `${user_id} recieved a ${type}`
+    };
+    
   })
 
 app.get('/get', (request, response) => {
