@@ -26,20 +26,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 3000));
-//verify app is working
+
 app.get('/', (request, response) => response.send('It works!'));
 
-app.post('/api/v1/users', (request, response) => {
+app.post('/add', (request, response) => {
     const text = request.body.text.split(' ');
     const user_id = text[0]
     const type = text[1]
+    var fixType = type.replace(/win',/i, 'win');
+    let outcome_type_id;
+
+    fixType === "win" ? outcome_type_id = 1 : outcome_type_id = 2
+
     User.findOrCreate({ userID: user_id })
+      .then((user) => {
+        console.log(user.outcome_types())
+        Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
+      })
+      .then(() => console.log('finish'))
 
+    const body = {
+      response_type: "in_channel",
+      text: `${user_id} recieved a ${type}`
+    }
 
-    response.status(200).json({ user_id, type })
+    response.status(200).send(body);
   })
 
-app.get('/api/v1/users', (request, response) => {
+app.get('/get', (request, response) => {
   console.log(request.body);
   database('users').select()
     .then(users => {
@@ -50,25 +64,6 @@ app.get('/api/v1/users', (request, response) => {
     });
 });
 
-app.get('/api/v1/wins', (request, response) => {
-  database('wins').select()
-    .then(wins => {
-      response.status(200).json(wins)
-    })
-    .catch(error => {
-      console.error('error', error);
-    })
-})
-
-app.get('/api/v1/losses', (request, response) => {
-  database('losses').select()
-    .then(losses => {
-      response.status(200).json(losses)
-    })
-    .catch(error => {
-      console.error('error', error);
-    })
-})
 
 app.listen(app.get('port'), () => {
   console.log(`Server is running on ${app.get('port')}.`)
