@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-require('locus')
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
@@ -35,7 +34,7 @@ app.post('/api/v1/users', (request, response) => {
     const user_id = text[0]
     const type = text[1]
     User.findOrCreate({ userID: user_id })
-      
+
 
     response.status(200).json({ user_id, type })
   })
