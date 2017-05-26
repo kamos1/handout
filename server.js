@@ -38,6 +38,11 @@ app.post('/add', (request, response) => {
 
     fixType === "win" ? outcome_type_id = 1 : outcome_type_id = 2
 
+    const body = {
+      response_type: "in_channel",
+      text: `${user_id} recieved a ${type}`
+    };
+    
     User.findOrCreate({ userID: user_id })
       .then((user) => {
         Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
@@ -45,11 +50,7 @@ app.post('/add', (request, response) => {
       .then(() => response.status(200).send(body))
       .catch((error) => response.status(500).send(error))
 
-    const body = {
-      response_type: "in_channel",
-      text: `${user_id} recieved a ${type}`
-    };
-    
+
   })
 
 app.get('/get', (request, response) => {
