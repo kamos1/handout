@@ -33,10 +33,24 @@ app.post('/api/v1/users', (request, response) => {
     const text = request.body.text.split(' ');
     const user_id = text[0]
     const type = text[1]
+    var fixType = type.replace(/win',/i, 'win');
+    let outcome_type_id;
+
+    fixType === "win" ? outcome_type_id = 1 : outcome_type_id = 2
+
     User.findOrCreate({ userID: user_id })
+      .then((user) => {
+        Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
+      })
+      .then(() => console.log('finish'))
 
+    const body = {
+      response_type: "in_channel",
+      text: `${user_id} recieved a ${type}`
+    }
 
-    response.status(200).json({ user_id, type })
+    response.status(200).send(body);
+    // response.status(200).json({ user_id, type })
   })
 
 app.get('/api/v1/users', (request, response) => {
