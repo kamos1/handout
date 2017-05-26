@@ -40,14 +40,13 @@ app.post('/add', (request, response) => {
 
     User.findOrCreate({ userID: user_id })
       .then((user) => {
-        console.log(user.outcome_types())
         Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
       })
       .then(() => console.log('finish'))
 
     const body = {
       response_type: "in_channel",
-      text: `${user_id} recieved a ${type}`
+      text: `${type} recieved a ${user_id}`
     }
 
     response.status(200).send(body);
