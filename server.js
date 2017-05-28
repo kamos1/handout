@@ -42,26 +42,18 @@ app.post('/add', (request, response) => {
       response_type: "in_channel",
       text: `${user_id} recieved a ${type}`
     };
-    
+
     User.findOrCreate({ userID: user_id })
       .then((user) => {
         Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
       })
       .then(() => response.status(200).send(body))
       .catch((error) => response.status(500).send(error))
-
-
-  })
+})
 
 app.get('/get', (request, response) => {
   console.log(request.body);
-  database('users').select()
-    .then(users => {
-      response.status(200).json(users);
-    })
-    .catch(error => {
-      console.error('error:', error);
-    });
+
 });
 
 
