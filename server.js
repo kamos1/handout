@@ -51,9 +51,8 @@ app.post('/add', (request, response) => {
       .catch((error) => response.status(500).send(error))
 })
 
-app.get('/get', (request, response) => {
+app.post('/check', (request, response) => {
   console.log(request.body);
-
 });
 
 
