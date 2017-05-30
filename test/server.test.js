@@ -39,12 +39,12 @@ describe('POST /add', () => {
       channel_name:'general',
       user_id:'U5GFS4CAE',
       user_name:'keji',
-      command:'/check',
+      command:'/add',
       text:'win <@U5GFS4CAE|keji>',
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
-      response.should.have.status(201)
+      response.should.have.status(200)
       response.body.should.be.a('object')
       response.body.should.have.property('response_type')
       response.body.response_type.should.equal('in_channel')
@@ -65,17 +65,38 @@ describe('POST /add', () => {
       channel_name:'general',
       user_id:'U5GFS4CAE',
       user_name:'keji',
-      command:'/check',
+      command:'/add',
       text:'loss <@U5GFS4CAE|keji>',
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
-      response.should.have.status(201)
+      response.should.have.status(200)
       response.body.should.be.a('object')
       response.body.should.have.property('response_type')
       response.body.response_type.should.equal('in_channel')
       response.body.should.have.property('text')
       response.body.text.should.equal('<@U5GFS4CAE|keji> recieved a loss')
+      done()
+    })
+  })
+
+  it('should error out when there is no win or loss assigned', (done) => {
+    chai.request(server)
+    .post('/add')
+    .send({
+      token:'q3cp86g0nrZih5bETlYfNrnH',
+      team_id:'T5HA0SULE',
+      team_domain:'winslow-hq',
+      channel_id:'C5FUGQBLH',
+      channel_name:'general',
+      user_id:'U5GFS4CAE',
+      user_name:'keji',
+      command:'/add',
+      text:'lies <@U5GFS4CAE|keji>',
+      response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
+    })
+    .end((err, response) => {
+      response.should.have.status(500)
       done()
     })
   })
