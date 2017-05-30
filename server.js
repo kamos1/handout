@@ -37,7 +37,7 @@ app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
   const requestToken = request.body.token.replace(/['",]+/g, '');
 
-  if(text.length < 2 || requestToken !== token) {
+  if(text.length < 2) {
     response.status(500).send({text: 'You made a mistake'})
   }
 
