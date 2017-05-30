@@ -36,6 +36,7 @@ app.post('/add', (request, response) => {
   if (text[0] !== 'win' || text[0] !== 'loss') {
     response.status(422).send({text: 'Check syntax. Missing win or loss.'})
   }
+  
   const type = text[0];
   const user = text[1];
   const fixUser = user.replace(/['",]+/g, '');
