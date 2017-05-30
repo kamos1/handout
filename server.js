@@ -106,6 +106,10 @@ app.post('/check', (request, response) => {
     }
 });
 
+app.get('/count', (request, response) => {
+  log(request)
+});
+
 app.listen(app.get('port'), () => {
   console.log(`Server is running on ${app.get('port')}.`)
 });
