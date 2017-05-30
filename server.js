@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const token = require('./token');
+// const token = require('./token');
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
@@ -40,6 +40,10 @@ app.post('/add', (request, response) => {
   if(text.length < 2) {
     response.status(500).send({text: 'You made a mistake'})
   }
+
+  // if(text.length < 2 || requestToken !== token) {
+  //   response.status(500).send({text: 'You made a mistake'})
+  // }
 
   const type = text[0].replace(/['",<>]+/g, '');
   const user = text[1].replace(/['",<>]+/g, '');
