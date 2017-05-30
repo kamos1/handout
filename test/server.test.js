@@ -44,7 +44,7 @@ describe('POST /add', () => {
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
-      response.should.have.status(201)
+      response.should.have.status(200)
       response.body.should.be.a('object')
       response.body.should.have.property('response_type')
       response.body.response_type.should.equal('in_channel')
@@ -70,7 +70,7 @@ describe('POST /add', () => {
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
-      response.should.have.status(201)
+      response.should.have.status(200)
       response.body.should.be.a('object')
       response.body.should.have.property('response_type')
       response.body.response_type.should.equal('in_channel')
@@ -80,7 +80,7 @@ describe('POST /add', () => {
     })
   })
 
-  it('should return 422 for missing information', (done) => {
+  it('should error out when there is no win or loss assigned', (done) => {
     chai.request(server)
     .post('/add')
     .send({
@@ -92,11 +92,13 @@ describe('POST /add', () => {
       user_id:'U5GFS4CAE',
       user_name:'keji',
       command:'/add',
-      text:'<@U5GFS4CAE|keji>',
+
+      text:'lies <@U5GFS4CAE|keji>',
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
-      response.should.have.status(422)
+      response.should.have.status(500)
+
       done()
     })
   })

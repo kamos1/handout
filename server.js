@@ -33,46 +33,53 @@ app.get('/', (request, response) => response.send('It works!'));
 
 app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
-
-  const type = text[0];
-  const user = text[1];
-  const fixUser = user.replace(/['",]+/g, '');
-  const fixType = type.replace(/['",]+/g, '');
+  const type = text[0].replace(/['",]+/g, '');
+  const user = text[1].replace(/['",]+/g, '');
+  const userInfo = user.split('|')
+  const username = userInfo[1].replace(/['",>]+/g, '');
   let outcome_type_id;
-
-
-  fixType === "win" ? outcome_type_id = 1 : outcome_type_id = 2;
 
   const body = {
     response_type: "in_channel",
-    text: `${fixUser} recieved a ${fixType}`
+    text: `${user} recieved a ${type}`
   };
 
-  User.findOrCreate({ userID: fixUser })
-    .then((user) => {
-      Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
-    })
-    .then(() => response.status(201).send(body))
-    .catch((error) => response.status(500).send(error))
-  });
+  switch (type) {
+    case 'win':
+      User.findOrCreate({ userID: user, username: username })
+        .then((user) => {
+          Outcome.create({user_id: user.id, outcome_types_id: 1})
+        })
+        .then(() => response.status(200).send(body))
+        .catch((error) => response.status(500).send(error))
+    case 'loss':
+      User.findOrCreate({ userID: user, username: username })
+        .then((user) => {
+          Outcome.create({user_id: user.id, outcome_types_id: 2})
+        })
+        .then(() => response.status(200).send(body))
+        .catch((error) => response.status(500).send(error))
+  };
+});
 
 app.post('/check', (request, response) => {
   const text = request.body.text.split(' ');
   const type = text[0].replace(/['",]+/g, '');
   const user = text[1].replace(/['",]+/g, '');
 
-  if (type === 'win') {
-    User.findOne({ userID: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: 1}))
-    .then((outcomes) => response.status(200)
-      .send({response_type: "in_channel", text: `You have ${outcomes.length} wins` }))
-    .catch((error) => response.status(500).send(error))
-  } else {
-    User.findOne({ userID: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: 2}))
-    .then((outcomes) => response.status(200)
-      .send({response_type: "in_channel", text: `You have ${outcomes.length} losses` }))
-    .catch((error) => response.status(500).send(error))
+  switch (type) {
+    case 'win':
+      User.findOne({ userID: user})
+      .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: 1}))
+      .then((outcomes) => response.status(200)
+        .send({text: `You have ${outcomes.length} wins` }))
+      .catch((error) => response.status(500).send(error))
+    case 'loss':
+      User.findOne({ userID: user})
+      .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: 2}))
+      .then((outcomes) => response.status(200)
+        .send({text: `You have ${outcomes.length} losses` }))
+      .catch((error) => response.status(500).send(error))
   }
 });
 
