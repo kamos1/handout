@@ -33,11 +33,15 @@ app.get('/', (request, response) => response.send('It works!'));
 
 app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
+  if (text[0] !== 'win' || text[0] !== 'loss') {
+    response.status(422).send({text: 'Check syntax. Missing win or loss.'})
+  }
   const type = text[0];
   const user = text[1];
   const fixUser = user.replace(/['",]+/g, '');
   const fixType = type.replace(/['",]+/g, '');
   let outcome_type_id;
+
 
   fixType === "win" ? outcome_type_id = 1 : outcome_type_id = 2;
 
