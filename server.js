@@ -48,7 +48,7 @@ app.post('/add', (request, response) => {
 
   User.findOrCreate({ userID: user, username: username })
         .then((user) => {
-          Outcome.create({user_id: user.id, outcome_types_id: 1})
+          Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
         })
         .then(() => response.status(200).send(body))
         .catch((error) => response.status(500).send(error))
