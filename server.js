@@ -107,7 +107,7 @@ app.post('/check', (request, response) => {
 });
 
 app.get('/count', (request, response) => {
-  log(request)
+  console.log(request)
 });
 
 app.listen(app.get('port'), () => {
