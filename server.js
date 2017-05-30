@@ -107,7 +107,7 @@ app.post('/check', (request, response) => {
 });
 
 app.get('/count', (request, response) => {
-  console.log(request)
+  console.log(request.query.user_id)
 });
 
 app.listen(app.get('port'), () => {
