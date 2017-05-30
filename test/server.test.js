@@ -92,11 +92,13 @@ describe('POST /add', () => {
       user_id:'U5GFS4CAE',
       user_name:'keji',
       command:'/add',
+
       text:'lies <@U5GFS4CAE|keji>',
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
       response.should.have.status(500)
+
       done()
     })
   })
