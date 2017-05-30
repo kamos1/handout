@@ -46,7 +46,7 @@ app.post('/add', (request, response) => {
   // }
 
   const type = text[0].replace(/['",<>]+/g, '');
-  const user = text[1].replace(/['",<>]+/g, '');
+  const user = text[1].replace(/['",]+/g, '');
   const userInfo = user.split('|')
   const username = userInfo[1].replace(/['",>]+/g, '');
   // let outcome_type_id;
