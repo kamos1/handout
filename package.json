@@ -29,6 +29,9 @@
     "pg": "^6.2.3"
   },
   "devDependencies": {
-    "locus": "^2.0.1"
+    "chai": "^4.0.0",
+    "chai-http": "^3.0.0",
+    "locus": "^2.0.1",
+    "mocha": "^3.4.2"
   }
 }
