@@ -108,11 +108,11 @@ app.post('/check', (request, response) => {
 });
 
 app.get('/count', (request, response) => {
-  console.log(request.query.user_name)
+  console.log(request.query)
   const user = request.query.user_name
   User.findOne({username: user})
     .then((user) => Outcome.findAll({user_id: user.id}))
-    .then((outcomes) => console.log(outcomes.outcome_types_id))
+    .then((outcomes) => console.log(outcomes))
     // .then((outcomes) => response.status(200)
     //   .send({text: `You have ${outcomes.length} outcomes`}))
     .catch((error) => response.status(500).send(error))
