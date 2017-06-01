@@ -108,8 +108,17 @@ app.post('/check', (request, response) => {
 });
 
 app.get('/count', (request, response) => {
-  console.log(request.query.user_id)
-  const userId = request.query.user_id
+  const user = request.query.user_name
+  const type = request.query.text.replace(/['",]+/g, '');
+  let outcome_type_id;
+
+  type === "wins" ? outcome_type_id = 1 : outcome_type_id = 2;
+
+  User.findOne({username: user})
+    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: outcome_type_id}))
+    .then((outcomes) => response.status(200)
+      .send({text: `You have ${outcomes.length} ${type} `}))
+    .catch((error) => response.status(500).send(error))
 });
 
 app.listen(app.get('port'), () => {
