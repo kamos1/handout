@@ -46,19 +46,20 @@ app.post('/add', (request, response) => {
   // }
 
   const type = text[0].replace(/['",<>]+/g, '');
-  const user = text[1].replace(/['",<>]+/g, '');
-  const userInfo = user.split('|')
+  const slackId = text[1].replace(/['",]+/g, '');
+  const userInfo = slackId.split('|')
+  const userId = userInfo[0].replace(/['",<>]+/g, '');
   const username = userInfo[1].replace(/['",>]+/g, '');
-  // let outcome_type_id;
+  let outcome_type_id;
 
   const body = {
     response_type: "in_channel",
-    text: `${user} recieved a ${type}`
+    text: `${slackId} recieved a ${type}`
   };
 
   type === "win" ? outcome_type_id = 1 : outcome_type_id = 2;
 
-  User.findOrCreate({ userID: user, username: username })
+  User.findOrCreate({ slack_id: slackId, username: username, user_id: userId })
         .then((user) => {
           Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
         })
@@ -92,18 +93,23 @@ app.post('/check', (request, response) => {
   let outcome_type_id;
 
   if (type === 'win') {
-      User.findOne({ userID: user, username: username })
+      User.findOne({ slack_id: user })
       .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: 1}))
       .then((outcomes) => response.status(200)
         .send({text: `You have ${outcomes.length} wins` }))
       .catch((error) => response.status(500).send(error))
     } else {
-      User.findOne({ userID: user})
+      User.findOne({ slack_id: user})
       .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: 2}))
       .then((outcomes) => response.status(200)
         .send({text: `You have ${outcomes.length} losses` }))
       .catch((error) => response.status(500).send(error))
     }
+});
+
+app.get('/count', (request, response) => {
+  console.log(request.query.user_id)
+  const userId = request.query.user_id
 });
 
 app.listen(app.get('port'), () => {
