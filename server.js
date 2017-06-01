@@ -108,8 +108,9 @@ app.post('/check', (request, response) => {
 });
 
 app.get('/count', (request, response) => {
-  console.log(request.query)
   const user = request.query.user_name
+  const type = request.query.text.replace(/['",]+/g, '');
+  console.log(type)
   User.findOne({username: user})
     .then((user) => Outcome.findAll({user_id: user.id}))
     .then((outcomes) => console.log(outcomes))
