@@ -110,12 +110,14 @@ app.post('/check', (request, response) => {
 app.get('/count', (request, response) => {
   const user = request.query.user_name
   const type = request.query.text.replace(/['",]+/g, '');
-  console.log(type)
+  let outcome_type_id;
+
+  type === "wins" ? outcome_type_id = 1 : outcome_type_id = 2;
+
   User.findOne({username: user})
-    .then((user) => Outcome.findAll({user_id: user.id}))
-    .then((outcomes) => console.log(outcomes))
-    // .then((outcomes) => response.status(200)
-    //   .send({text: `You have ${outcomes.length} outcomes`}))
+    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: outcome_type_id}))
+    .then((outcomes) => response.status(200)
+      .send({text: `You have ${outcomes.length} ${type} `}))
     .catch((error) => response.status(500).send(error))
 });
 
