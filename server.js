@@ -111,7 +111,7 @@ app.get('/count', (request, response) => {
   // console.log(request)
   const userId = request.query.user_id
   User.findOne({user_id: userId})
-    .then((user) => console.log(user);)
+    .then((user) => console.log(user))
     .then((user) => Outcome.findAll({user_id: user.id}))
     .then((outcomes) => response.status(200)
       .send({text: `You have ${outcomes.length} outcomes`}))
