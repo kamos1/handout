@@ -108,7 +108,7 @@ app.post('/check', (request, response) => {
 });
 
 app.get('/count', (request, response) => {
-  console.log(request)
+  console.log(request.query.user_name)
   const user = request.query.user_name
   User.findOne({username: user})
     .then((user) => console.log(user))
