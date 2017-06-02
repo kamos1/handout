@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 3000));
 
-app.get('/', (request, response) => response.send('It works!'));
+app.get('/', (request, response) => response.send('Keji made a thing!'));
 
 app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
