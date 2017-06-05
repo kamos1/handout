@@ -1,6 +1,9 @@
-# slack-app
+# Handout
 ## Overview:
-This is a slackbot built on Node.js with an Express back-end that interacts with a React front-end. It was created during the fourth week of my third module at Turing.
+This is a slackbot built on Node.js with an Express back-end.
+
 
 ## Installation and Setup
-  
+- git clone
+- npm Install
+- npm start
