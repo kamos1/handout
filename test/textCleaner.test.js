@@ -1,6 +1,6 @@
 const chai = require('chai')
 const should = chai.should()
-const textCleaner = require('../textCleaner')
+const textCleaner = require('../helpers/textCleaner')
 
 describe('textCleaner tests', () => {
   it('should be a function', () => {

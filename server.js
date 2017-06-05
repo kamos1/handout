@@ -8,10 +8,10 @@ const database = require('knex')(configuration);
 const bookshelf = require('bookshelf')(database);
 const ModelBase = require('bookshelf-modelbase')(bookshelf);
 
-const typeCheck = require('./typeCheck');
-const textCleaner = require('./textCleaner');
-const userCleaner = require('./userCleaner');
-const validateInput = require('./validateInput');
+const typeCheck = require('./helpers/typeCheck');
+const textCleaner = require('./helpers/textCleaner');
+const userCleaner = require('./helpers/userCleaner');
+const validateInput = require('./helpers/validateInput');
 
 const User = ModelBase.extend({
   tableName: 'users',

@@ -1,6 +1,6 @@
 const chai = require('chai')
 const should = chai.should()
-const typeCheck = require('../typeCheck')
+const typeCheck = require('../helpers/typeCheck')
 
 describe('isWin tests', () => {
   it('should be a function', () => {
