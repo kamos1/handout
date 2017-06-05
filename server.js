@@ -8,6 +8,11 @@ const database = require('knex')(configuration);
 const bookshelf = require('bookshelf')(database);
 const ModelBase = require('bookshelf-modelbase')(bookshelf);
 
+const isWin = require('./isWin');
+const textCleaner = require('./textCleaner');
+const userCleaner = require('./userCleaner');
+const validateInput = require('./validateInput');
+
 const User = ModelBase.extend({
   tableName: 'users',
   outcomes: () => this.hasMany(Outcome),
@@ -33,29 +38,24 @@ app.get('/', (request, response) => response.send('Keji made a thing!'));
 
 app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
-  const requestToken = request.body.token.replace(/['",]+/g, '');
+  const requestToken = textCleaner(request.body.token);
 
-  if(text.length < 2) {
-    response.status(500).send({text: 'You made a mistake'})
-  }
+  validateInput(text)
 
-  const type = text[0].replace(/['",<>]+/g, '');
-  const slackId = text[1].replace(/['",]+/g, '');
+  const type = textCleaner(text[0]);
+  const slackId = textCleaner(text[1]);
   const userInfo = slackId.split('|')
-  const userId = userInfo[0].replace(/['",<>]+/g, '');
-  const username = userInfo[1].replace(/['",>]+/g, '');
-  let outcome_type_id;
+  const userId = userCleaner(userInfo[0]);
+  const username = userCleaner(userInfo[1]);
 
   const body = {
     response_type: "in_channel",
     text: `${slackId} recieved a ${type}`
   };
 
-  type === "win" ? outcome_type_id = 1 : outcome_type_id = 2;
-
   User.findOrCreate({ slack_id: slackId, username: username, user_id: userId })
         .then((user) => {
-          Outcome.create({user_id: user.id, outcome_types_id: outcome_type_id})
+          Outcome.create({user_id: user.id, outcome_types_id: isWin(type)})
         })
         .then(() => response.status(200).send(body))
         .catch((error) => response.status(500).send(error))
@@ -63,14 +63,11 @@ app.post('/add', (request, response) => {
 
 app.post('/check', (request, response) => {
   const text = request.body.text.split(' ')
-  const type = text[0].replace(/['",]+/g, '');
-  const user = request.body.user_name.replace(/['",]+/g, '');
-  let outcome_type_id;
-
-  type === "wins" ? outcome_type_id = 1 : outcome_type_id = 2;
+  const type = textCleaner(text[0]);
+  const user = textCleaner(request.body.user_name);
 
   User.findOne({username: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: outcome_type_id}))
+    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: isWin(type)}))
     .then((outcomes) => response.status(200)
       .send({text: `You have ${outcomes.length} ${type} `}))
     .catch((error) => response.status(500).send(error))
@@ -78,13 +75,10 @@ app.post('/check', (request, response) => {
 
 app.get('/count', (request, response) => {
   const user = request.query.user_name
-  const type = request.query.text.replace(/['",]+/g, '');
-  let outcome_type_id;
-
-  type === "wins" ? outcome_type_id = 1 : outcome_type_id = 2;
+  const type = textCleaner(request.query.text);
 
   User.findOne({username: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: outcome_type_id}))
+    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: isWin(type)}))
     .then((outcomes) => response.status(200)
       .send({text: `You have ${outcomes.length} ${type} `}))
     .catch((error) => response.status(500).send(error))

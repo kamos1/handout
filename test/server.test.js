@@ -12,7 +12,7 @@ describe('Client Routes', () => {
     .end((err, response) => {
       response.should.have.status(200)
       response.should.be.html
-      response.res.text.should.equal('It works!')
+      response.res.text.should.equal('Keji made a thing!')
       done()
     })
   })
@@ -80,7 +80,7 @@ describe('POST /add', () => {
     })
   })
 
-  it.skip('should error out when there is no win or loss assigned', (done) => {
+  it('should error out when there is no win or loss assigned', (done) => {
     chai.request(server)
     .post('/add')
     .send({
@@ -93,7 +93,7 @@ describe('POST /add', () => {
       user_name:'keji',
       command:'/add',
 
-      text:'lies <@U5GFS4CAE|keji>',
+      text:'<@U5GFS4CAE|keji>',
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
@@ -117,7 +117,7 @@ describe('POST /check', () => {
       user_id:'U5GFS4CAE',
       user_name:'keji',
       command:'/check',
-      text:'loss <@U5GFS4CAE|keji>',
+      text:'losses <@U5GFS4CAE|keji>',
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
@@ -141,7 +141,7 @@ describe('POST /check', () => {
       user_id:'U5GFS4CAE',
       user_name:'keji',
       command:'/check',
-      text:'win <@U5GFS4CAE|keji>',
+      text:'wins <@U5GFS4CAE|keji>',
       response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
     })
     .end((err, response) => {
