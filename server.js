@@ -11,6 +11,7 @@ const ModelBase = require('bookshelf-modelbase')(bookshelf);
 const isWin = require('./isWin');
 const textCleaner = require('./textCleaner');
 const userCleaner = require('./userCleaner');
+const validateInput = require('./validateInput');
 
 const User = ModelBase.extend({
   tableName: 'users',
@@ -39,9 +40,7 @@ app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
   const requestToken = textCleaner(request.body.token);
 
-  if(text.length < 2) {
-    response.status(500).send({text: 'You made a mistake'})
-  }
+  validateInput(text)
 
   const type = textCleaner(text[0]);
   const slackId = textCleaner(text[1]);
