@@ -8,7 +8,9 @@ const database = require('knex')(configuration);
 const bookshelf = require('bookshelf')(database);
 const ModelBase = require('bookshelf-modelbase')(bookshelf);
 
-const isWin = require('./isWin')
+const isWin = require('./isWin');
+const textCleaner = require('./textCleaner');
+const userCleaner = require('./userCleaner');
 
 const User = ModelBase.extend({
   tableName: 'users',
@@ -35,18 +37,18 @@ app.get('/', (request, response) => response.send('Keji made a thing!'));
 
 app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
-  const requestToken = request.body.token.replace(/['",]+/g, '');
+  const requestToken = textCleaner(request.body.token);
 
   if(text.length < 2) {
     response.status(500).send({text: 'You made a mistake'})
   }
 
-  const type = text[0].replace(/['",<>]+/g, '');
-  const slackId = text[1].replace(/['",]+/g, '');
+  const type = textCleaner(text[0]);
+  const slackId = textCleaner(text[1]);
   const userInfo = slackId.split('|')
-  const userId = userInfo[0].replace(/['",<>]+/g, '');
-  const username = userInfo[1].replace(/['",>]+/g, '');
-  
+  const userId = userCleaner(userInfo[0]);
+  const username = userCleaner(userInfo[1]);
+
   const body = {
     response_type: "in_channel",
     text: `${slackId} recieved a ${type}`
@@ -62,8 +64,8 @@ app.post('/add', (request, response) => {
 
 app.post('/check', (request, response) => {
   const text = request.body.text.split(' ')
-  const type = text[0].replace(/['",]+/g, '');
-  const user = request.body.user_name.replace(/['",]+/g, '');
+  const type = textCleaner(text[0]);
+  const user = textCleaner(request.body.user_name);
 
   User.findOne({username: user})
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: isWin(type)}))
@@ -74,7 +76,7 @@ app.post('/check', (request, response) => {
 
 app.get('/count', (request, response) => {
   const user = request.query.user_name
-  const type = request.query.text.replace(/['",]+/g, '');
+  const type = textCleaner(request.query.text);
 
   User.findOne({username: user})
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: isWin(type)}))
