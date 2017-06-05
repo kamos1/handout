@@ -5,7 +5,7 @@ const server = require('../server')
 
 chai.use(chaiHttp)
 
-describe('Client Routes', () => {
+describe('Routes', () => {
   it('should return the homepage with text', (done) => {
     chai.request(server)
     .get('/')
