@@ -2,7 +2,7 @@
 
 _Describe the problem or feature in addition to a link to the issues. Delete any content that doesn't apply._
 
-- add tests for helper functions
+- This PR is for adding tests for the helper functions. Feel free to look at the server test but that test has nothing to do with this PR. 
 - [link to issue](https://github.com/kamos1/handout/issues/21)
 
 ## Pre-Merge TODOs
@@ -25,9 +25,10 @@ _Links to blog posts, patterns, libraries or add-ons used to solve this problem.
 
 _What should the reviewer look at. Are there any potential red flags or concerns you have? How will the reviewer see the code (can they run it locally, etc?)_
 
-- Look at test files
+- Look at test folder. Don't about the server tests, this PR is for the he
 
 ## Any background context you want to provide?
+- Don't worry about the server test. If you have questions about let's discuss them but
 
 ## Screenshots (if appropriate)
 
