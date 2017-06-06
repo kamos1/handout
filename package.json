@@ -29,9 +29,15 @@
     "pg": "^6.2.3"
   },
   "devDependencies": {
+    "bookshelf": "^0.10.3",
+    "bookshelf-modelbase": "^2.10.4",
     "chai": "^4.0.0",
     "chai-http": "^3.0.0",
+    "express": "^4.15.3",
+    "knex": "^0.13.0",
     "locus": "^2.0.1",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "pg": "^6.2.3"
   }
 }

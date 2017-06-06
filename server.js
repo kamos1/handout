@@ -8,10 +8,10 @@ const database = require('knex')(configuration);
 const bookshelf = require('bookshelf')(database);
 const ModelBase = require('bookshelf-modelbase')(bookshelf);
 
-const isWin = require('./isWin');
-const textCleaner = require('./textCleaner');
-const userCleaner = require('./userCleaner');
-const validateInput = require('./validateInput');
+const typeCheck = require('./helpers/typeCheck');
+const textCleaner = require('./helpers/textCleaner');
+const userCleaner = require('./helpers/userCleaner');
+const validateInput = require('./helpers/validateInput');
 
 const User = ModelBase.extend({
   tableName: 'users',
@@ -40,11 +40,11 @@ app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
   const requestToken = textCleaner(request.body.token);
 
-  validateInput(text)
+  validateInput(text);
 
   const type = textCleaner(text[0]);
   const slackId = textCleaner(text[1]);
-  const userInfo = slackId.split('|')
+  const userInfo = slackId.split('|');
   const userId = userCleaner(userInfo[0]);
   const username = userCleaner(userInfo[1]);
 
@@ -55,30 +55,30 @@ app.post('/add', (request, response) => {
 
   User.findOrCreate({ slack_id: slackId, username: username, user_id: userId })
         .then((user) => {
-          Outcome.create({user_id: user.id, outcome_types_id: isWin(type)})
+          Outcome.create({user_id: user.id, outcome_types_id: typeCheck(type)})
         })
         .then(() => response.status(200).send(body))
         .catch((error) => response.status(500).send(error))
 });
 
 app.post('/check', (request, response) => {
-  const text = request.body.text.split(' ')
+  const text = request.body.text.split(' ');
   const type = textCleaner(text[0]);
   const user = textCleaner(request.body.user_name);
 
   User.findOne({username: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: isWin(type)}))
+    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
     .then((outcomes) => response.status(200)
       .send({text: `You have ${outcomes.length} ${type} `}))
     .catch((error) => response.status(500).send(error))
 });
 
 app.get('/count', (request, response) => {
-  const user = request.query.user_name
+  const user = request.query.user_name;
   const type = textCleaner(request.query.text);
 
   User.findOne({username: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: isWin(type)}))
+    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
     .then((outcomes) => response.status(200)
       .send({text: `You have ${outcomes.length} ${type} `}))
     .catch((error) => response.status(500).send(error))
