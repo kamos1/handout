@@ -2,17 +2,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-// const environment = process.env.NODE_ENV || 'development';
-// const configuration = require('./knexfile')[environment];
-// const database = require('knex')(configuration);
-// const bookshelf = require('bookshelf')(database);
-// const ModelBase = require('bookshelf-modelbase')(bookshelf);
-const ModelBase = require('./db/modelbase');
-
 const typeCheck = require('./helpers/typeCheck');
 const textCleaner = require('./helpers/textCleaner');
 const userCleaner = require('./helpers/userCleaner');
 const validateInput = require('./helpers/validateInput');
+
+const ModelBase = require('./db/modelbase');
 
 const User = ModelBase.extend({
   tableName: 'users',
