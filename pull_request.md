@@ -2,6 +2,9 @@
 
 _Describe the problem or feature in addition to a link to the issues. Delete any content that doesn't apply._
 
+- add tests for helper functions
+- [link to issue](https://github.com/kamos1/handout/issues/21)
+
 ## Pre-Merge TODOs
  - [ ] Screenshots Included
     - ANY change to the UI of the app must have screenshots/gifs
@@ -21,6 +24,8 @@ _Links to blog posts, patterns, libraries or add-ons used to solve this problem.
 ## Where should the reviewer start?
 
 _What should the reviewer look at. Are there any potential red flags or concerns you have? How will the reviewer see the code (can they run it locally, etc?)_
+
+- Look at test files
 
 ## Any background context you want to provide?
 
