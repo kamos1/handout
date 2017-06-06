@@ -1,9 +1,9 @@
 # Application Name: Handout
 ## Overview:
-Handout is a slackbot built with Express and Postgresql for my personal project in Module 3 while at Turing School of Software and Design. It allows users on Slack to publicly praise one another and publicly shame one another, because who hasn't taken a couple losses in their day... Users can also check to she how many wins and losses they have.
+Handout is a slackbot built with Express and Postgresql for my personal project in Module 3 while at Turing School of Software and Design. It allows users on Slack to publicly praise one another and publicly shame one another, because who hasn't taken a couple losses in their day... Users can also check to see how many wins and losses they have.
 
 Slash Commands
-- give someone a win or loss with
+- give someone a win or loss
   - /give win/loss @username
 - check how many wins or losses you have
   - /count wins/losses
