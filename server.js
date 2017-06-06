@@ -2,11 +2,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const environment = process.env.NODE_ENV || 'development';
-const configuration = require('./knexfile')[environment];
-const database = require('knex')(configuration);
-const bookshelf = require('bookshelf')(database);
-const ModelBase = require('bookshelf-modelbase')(bookshelf);
+// const environment = process.env.NODE_ENV || 'development';
+// const configuration = require('./knexfile')[environment];
+// const database = require('knex')(configuration);
+// const bookshelf = require('bookshelf')(database);
+// const ModelBase = require('bookshelf-modelbase')(bookshelf);
+const ModelBase = require('./db/modelbase');
 
 const typeCheck = require('./helpers/typeCheck');
 const textCleaner = require('./helpers/textCleaner');
@@ -40,7 +41,10 @@ app.post('/add', (request, response) => {
   const text = request.body.text.split(' ');
   const requestToken = textCleaner(request.body.token);
 
-  validateInput(text);
+  const validate = validateInput(text);
+  if (validate === 'You made a mistake') {
+    return response.status(500).send({text: 'You made a mistake'})
+  }
 
   const type = textCleaner(text[0]);
   const slackId = textCleaner(text[1]);
