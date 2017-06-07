@@ -23,6 +23,7 @@ const Outcome_Type = ModelBase.extend({
 
 const add = (request, response) => {
   const text = request.body.text.split(' ');
+  const url = request.response_url;
 
   const validate = validateInput(text[0]);
   if (validate === 'You made a mistake') {
@@ -44,7 +45,8 @@ const add = (request, response) => {
         .then((user) => {
           Outcome.create({user_id: user.id, outcome_types_id: typeCheck(type)})
         })
-        .then(() => response.status(200).send(body))
+        .then(() => fetch(url, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' },
+    }))
         .catch((error) => response.status(500).send(error))
 }
 
