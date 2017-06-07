@@ -45,7 +45,7 @@ const add = (request, response) => {
         .then((user) => {
           Outcome.create({user_id: user.id, outcome_types_id: typeCheck(type)})
         })
-        .then(() => fetch(url, { method: 'POST', body: JSON.stringify(body), headers: { 'content-type': 'application/json' },
+        .then(() => fetch(url, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' },
     }))
         .catch((error) => response.status(500).send(error))
 }
