@@ -26,7 +26,7 @@ const add = (request, response) => {
 
   const validate = validateInput(text);
   if (validate === 'You made a mistake') {
-    return response.status(500).send({text: 'You made a mistake'})
+    return response.status(500).send({text: '*You made a mistake*'})
   }
 
   const type = textCleaner(text[0]);
@@ -37,7 +37,7 @@ const add = (request, response) => {
 
   const body = {
     response_type: "in_channel",
-    text: `${slackId} recieved a ${type}`
+    text: `*${slackId} recieved a ${type}*`
   };
 
   User.findOrCreate({ slack_id: slackId, username: username, user_id: userId })
@@ -56,7 +56,7 @@ const check = (request, response) => {
   User.findOne({username: user})
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
     .then((outcomes) => response.status(200)
-      .send({text: `You have ${outcomes.length} ${type} `}))
+      .send({text: `*You have ${outcomes.length} ${type}*`}))
     .catch((error) => response.status(500).send(error))
 }
 
@@ -67,7 +67,7 @@ const count = (request, response) => {
   User.findOne({username: user})
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
     .then((outcomes) => response.status(200)
-      .send({text: `You have ${outcomes.length} ${type} `}))
+      .send({text: `*You have ${outcomes.length} ${type}*`}))
     .catch((error) => response.status(500).send(error))
 }
 
