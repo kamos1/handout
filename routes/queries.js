@@ -51,12 +51,12 @@ const add = (request, response) => {
 const check = (request, response) => {
   const text = request.body.text.split(' ');
   const type = textCleaner(text[0]);
-  const user = textCleaner(request.body.user_name);
+  const user = textCleaner(text[1]);
 
-  User.findOne({username: user})
+  User.findOne({slack_id: user})
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
     .then((outcomes) => response.status(200)
-      .send({text: `*You have ${outcomes.length} ${type}*`}))
+      .send({text: `*${user} has ${outcomes.length} ${type}*`}))
     .catch((error) => response.status(500).send(error))
 }
 
