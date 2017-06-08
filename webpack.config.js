@@ -12,9 +12,9 @@ module.exports = {
     ]
   },
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '/bundle.js'
   },
   resolve: {
     extensions: ['.js', '.css']
