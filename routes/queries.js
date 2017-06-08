@@ -63,7 +63,6 @@ const check = (request, response) => {
 
 const checkWins = (request, response) => {
   const text = request.body.text.split(' ');
-  console.log(text);
   const type = textCleaner(text[0]);
   const user = textCleaner(text[1]);
   const userInfo = user.split('|');
@@ -76,8 +75,6 @@ const checkWins = (request, response) => {
       .send({text: `CB has ${outcomes.length} ${type}`}))
     .catch((error) => response.status(500).send(error))
 }
-
-
 
 const count = (request, response) => {
   const user = request.text;
