@@ -14,7 +14,8 @@ app.get('/', (request, response) => response.sendFile(__dirname, '/dist/index.ht
 
 app.use('/', routes)
 
-app.listen(port)
-console.log(`Server is running on ${port}.`)
+app.listen(port, error => {
+  error ? console.error(error) : console.log(`Server is running on ${port}.`)
+})
 
 module.exports = app
