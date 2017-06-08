@@ -22,6 +22,11 @@
   "homepage": "https://github.com/kamos1/slack-app#readme",
   "dependencies": {
     "@slack/client": "^3.9.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.2",
     "bookshelf": "^0.10.3",
     "bookshelf-modelbase": "^2.10.3",
@@ -35,11 +40,6 @@
     "webpack": "^2.6.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "bookshelf": "^0.10.3",
     "bookshelf-modelbase": "^2.10.4",
     "chai": "^4.0.0",
