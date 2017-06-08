@@ -12,14 +12,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/prod/'
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
-      }
-    })
-  ],
   module: {
     loaders: [
       {

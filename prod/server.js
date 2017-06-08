@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use('/prod', publicPath)
-app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/indexProd.html')));
+app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/index.html')));
 
 app.use('/', routes)
 
