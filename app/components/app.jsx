@@ -5,7 +5,7 @@ export default class App extends Component {
   render() {
     return (
       <div className='main'>
-        woiejfwoiafjaoiejf
+        Keji did it again!
       </div>
     );
   }
