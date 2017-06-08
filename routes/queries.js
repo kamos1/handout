@@ -61,8 +61,26 @@ const check = (request, response) => {
     .catch((error) => response.status(500).send(error))
 }
 
+const checkWins = (request, response) => {
+  const text = request.body.text.split(' ');
+  console.log(text);
+  const type = textCleaner(text[0]);
+  const user = textCleaner(text[1]);
+  const userInfo = user.split('|');
+  const userId = userCleaner(userInfo[0]);
+  const username = userCleaner(userInfo[1]);
+
+  User.findOne({slack_id: user})
+    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
+    .then((outcomes) => response.status(200)
+      .send({text: `CB has ${outcomes.length} ${type}`}))
+    .catch((error) => response.status(500).send(error))
+}
+
+
+
 const count = (request, response) => {
-  const user = request.query.user_name;
+  const user = request.text;
   const type = textCleaner(request.query.text);
 
   User.findOne({username: user})
@@ -75,5 +93,6 @@ const count = (request, response) => {
 module.exports = {
   add: add,
   check: check,
+  checkWins: checkWins,
   count: count
 }

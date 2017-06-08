@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
+import Controls from './Controls';
+import '../styles/App.css';
 
 export default class App extends Component {
+  constructor() {
+    super(),
+    this.state = {
+      stuff: ''
+    }
+  }
 
+  fetchWins(){
+    fetch('/checkWins', {
+            method: 'POST',
+            body: JSON.stringify({ text: 'losses <@U5GFS4CAE|keji>' }),
+            headers: { 'Content-Type': 'application/json' },
+          })
+          .then(resp => (resp.json()))
+          .then(output => this.setState({stuff: output.text}))
+          .catch(console.log('something did not happen'))
+  }
   render() {
     return (
-      <div className='main'>
-        Keji did it again!
-      </div>
+      <section className='main'>
+        <div>handOUT</div>
+        <h1>{this.state.stuff}</h1>
+        <button onClick={() => this.fetchWins()}>Click</button>
+      </section>
     );
   }
 }
