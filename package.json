@@ -51,7 +51,6 @@
     "nodemon": "^1.11.0",
     "pg": "^6.2.3",
     "react-scripts": "^0.9.5",
-    "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.18.0"
