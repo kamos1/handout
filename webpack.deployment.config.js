@@ -1,31 +1,20 @@
-const path = require('path');
+const config = require('./webpack.config.js');
 const webpack = require('webpack');
 
-module.exports = {
-  devtool: 'source-map',
+config.plugins.push(
+  new webpack.DefinePlugin({
+    "process.env": {
+      "NODE_ENV": JSON.stringify("production")
+    }
+  })
+);
 
-  entry: [
-    './app/index.js'
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/prod/'
-  },
-  module: {
-    loaders: [
-      {
-        test: /.jsx?$/,
-        loader: 'babel-loader',
-        include: path.join(__dirname, 'app'),
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.json', '.scss', '.css']
-  }
-};
+config.plugins.push(
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false
+    }
+  })
+);
+
+module.exports = config;
