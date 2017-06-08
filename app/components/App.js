@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Controls from './Controls';
-import '../styles/App.css';
 
 export default class App extends Component {
   constructor() {
