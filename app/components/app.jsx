@@ -4,9 +4,9 @@ export default class App extends Component {
 
   render() {
     return (
-        <div>
-          Something
-        </div>
-    )
+      <div className='main'>
+        woiejfwoiafjaoiejf
+      </div>
+    );
   }
 }
