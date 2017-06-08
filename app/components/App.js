@@ -23,7 +23,7 @@ export default class App extends Component {
       <section className='main'>
         <div>handOUT</div>
         <h1>{this.state.stuff}</h1>
-        <button onClick={() => this.fetchWins().bind(this)}>Submit</button>
+        <button onClick={() => this.fetchWins()}>Submit</button>
       </section>
     );
   }
