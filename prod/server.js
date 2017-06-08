@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('../routes/endpoints');
 const port = (process.env.PORT || 3000);
@@ -10,11 +11,11 @@ app.use(bodyParser.json());
 
 // app.set('port', (process.env.PORT || 3000));
 if (process.env.NODE_ENV !== 'production') {
-  const webpack = require('webpack')
-  const webpackDevMiddleware = require('webpack-dev-middleware')
-  const webpackHotMiddleware = require('webpack-hot-middleware')
-  const config = require('../webpack.deployment.config.js')
-  const compiler = webpack(config)
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const config = require('../webpack.deployment.config.js');
+  const compiler = webpack(config);
 
   app.use(webpackHotMiddleware(compiler))
   app.use(webpackDevMiddleware(compiler, {

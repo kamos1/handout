@@ -8,19 +8,29 @@ module.exports = {
     './app/index.js'
   ],
   output: {
-    path: path.join(__dirname, 'prod'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/prod'
+    publicPath: '/prod/'
   },
-  module: {
-    loaders:[{
-      test: /.jsx?$/,
-      loader: 'babel-loader',
-      include: path.join(__dirname, 'server'),
-      exclude: '/node_modules/',
-      query: {
-        presets: ['es2015', 'react']
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compress: {
+        warnings: false
       }
-    }]
+    })
+  ],
+  module: {
+    loaders: [
+      {
+        test: /.jsx?$/,
+        loader: 'babel-loader',
+        include: path.join(__dirname, 'app'),
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react']
+        }
+      }
+    ]
   },
 };
