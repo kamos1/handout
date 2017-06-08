@@ -11,7 +11,7 @@ export default class App extends Component {
   fetchWins(){
     fetch('/checkWins', {
             method: 'POST',
-            body: JSON.stringify({ text: 'losses <@U5GFS4CAE|keji>' }),
+            body: JSON.stringify({ text: 'losses <@U5GFS4CAE|cb>' }),
             headers: { 'Content-Type': 'application/json' },
           })
           .then(resp => (resp.json()))
