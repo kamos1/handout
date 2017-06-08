@@ -72,7 +72,7 @@ const checkWins = (request, response) => {
   User.findOne({slack_id: user})
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
     .then((outcomes) => response.status(200)
-      .send({text: `CB has ${outcomes.length} ${type}`}))
+      .send({text: `${username} has ${outcomes.length} ${type}`}))
     .catch((error) => response.status(500).send(error))
 }
 
