@@ -1,2 +1,5 @@
 node_modules
 token.js
+*npm-debug.log
+*.DS_Store
+dist/bundle.js
