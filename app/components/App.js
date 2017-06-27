@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
+import Input from './Input'
 
 export default class App extends Component {
   constructor() {
     super(),
     this.state = {
-      stuff: ''
+      wins: '',
+      losses: ''
     }
   }
 
-  fetchWins(){
-    fetch('/checkWins', {
-            method: 'POST',
-            body: JSON.stringify({ text: 'losses <@U5GFS4CAE|cb>' }),
-            headers: { 'Content-Type': 'application/json' },
+  fetchWins(username){
+    fetch(`/getWins?username=${username}`, {
+            method: 'GET',
           })
           .then(resp => (resp.json()))
-          .then(output => this.setState({stuff: output.text}))
-          .catch(console.log('something did not happen'))
+          .then(output => this.setState({wins: output.text}))
+          .catch(console.log('something did not happen wins'))
   }
+  
+  fetchLosses(username){
+    fetch(`/getLosses?username=${username}`, {
+            method: 'GET',
+          })
+          .then(resp => (resp.json()))
+          .then(output => this.setState({losses: output.text}))
+          .catch(console.log('something did not happen losses'))
+  }
+
   render() {
     return (
       <section className='main'>
         <div>handOUT</div>
-        <h1>{this.state.stuff}</h1>
-        <button onClick={() => this.fetchWins()}>Submit</button>
+        <Input fetchWins={this.fetchWins.bind(this)} fetchLosses={this.fetchLosses.bind(this)}/>
+        <h1>{this.state.wins}</h1>
+        <h1>{this.state.losses}</h1>
       </section>
     );
   }

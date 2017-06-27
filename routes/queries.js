@@ -53,6 +53,7 @@ const check = (request, response) => {
   const text = request.body.text.split(' ');
   const type = textCleaner(text[0]);
   const user = textCleaner(text[1]);
+  console.log(user);
 
   User.findOne({slack_id: user})
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
@@ -61,35 +62,31 @@ const check = (request, response) => {
     .catch((error) => response.status(500).send(error))
 }
 
-const checkWins = (request, response) => {
-  const text = request.body.text.split(' ');
-  const type = textCleaner(text[0]);
-  const user = textCleaner(text[1]);
-  const userInfo = user.split('|');
-  const userId = userCleaner(userInfo[0]);
-  const username = userCleaner(userInfo[1]);
-
-  User.findOne({slack_id: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
-    .then((outcomes) => response.status(200)
-      .send({text: `${username} has ${outcomes.length} ${type}`}))
-    .catch((error) => response.status(500).send(error))
-}
-
-const count = (request, response) => {
-  const user = request.text;
-  const type = textCleaner(request.query.text);
+const getWins = (request, response) => {
+  const user = request.query.username;
+  const type = 'win';
 
   User.findOne({username: user})
-    .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
-    .then((outcomes) => response.status(200)
-      .send({text: `*You have ${outcomes.length} ${type}*`}))
-    .catch((error) => response.status(500).send(error))
+  .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
+  .then((outcomes) => response.status(200)
+  .send({text: `${user} has ${outcomes.length} ${type}s`}))
+  .catch((error) => response.status(500).send(error))
+}
+
+const getLosses = (request, response) => {
+  const user = request.query.username;
+  const type = 'loss';
+
+  User.findOne({username: user})
+  .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
+  .then((outcomes) => response.status(200)
+  .send({text: `${user} has ${outcomes.length} ${type}es`}))
+  .catch((error) => response.status(500).send(error))
 }
 
 module.exports = {
   add: add,
   check: check,
-  checkWins: checkWins,
-  count: count
+  getWins: getWins,
+  getLosses: getLosses
 }
