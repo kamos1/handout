@@ -18,7 +18,7 @@ export default class App extends Component {
           .then(output => this.setState({wins: output.text}))
           .catch(console.log('something did not happen wins'))
   }
-  
+
   fetchLosses(username){
     fetch(`/getLosses?username=${username}`, {
             method: 'GET',
