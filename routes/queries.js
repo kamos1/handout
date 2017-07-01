@@ -42,8 +42,7 @@ const add = (request, response) => {
   };
 
   User.findOrCreate({ slack_id: slackId, username: username, user_id: userId })
-        .then((user) => {
-          Outcome.create({user_id: user.id, outcome_types_id: typeCheck(type)})
+        .then((user) => {Outcome.create({user_id: user.id, outcome_types_id: typeCheck(type)})
         })
         .then(() => response.status(200).send(body))
         .catch((error) => response.status(500).send(error))
@@ -55,7 +54,8 @@ const check = (request, response) => {
   const user = textCleaner(text[1]);
   console.log(user);
 
-  User.findOne({slack_id: user})
+  new User({slack_id: user})
+    .fetch()
     .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
     .then((outcomes) => response.status(200)
       .send({text: `*${user} has ${outcomes.length} ${type}*`}))
@@ -66,7 +66,8 @@ const getWins = (request, response) => {
   const user = request.query.username;
   const type = 'win';
 
-  User.findOne({username: user})
+  new User({username: user})
+  .fetch()
   .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
   .then((outcomes) => response.status(200)
   .send({text: `${user} has ${outcomes.length} ${type}s`}))
@@ -77,7 +78,8 @@ const getLosses = (request, response) => {
   const user = request.query.username;
   const type = 'loss';
 
-  User.findOne({username: user})
+  new User({username: user})
+  .fetch()
   .then((user) => Outcome.findAll({user_id: user.id, outcome_types_id: typeCheck(type)}))
   .then((outcomes) => response.status(200)
   .send({text: `${user} has ${outcomes.length} ${type}es`}))
