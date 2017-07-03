@@ -3,23 +3,9 @@ const textCleaner = require('../helpers/textCleaner');
 const userCleaner = require('../helpers/userCleaner');
 const validateInput = require('../helpers/validateInput');
 
-const ModelBase = require('../db/modelbase');
-
-const User = ModelBase.extend({
-  tableName: 'users',
-  outcomes: () => this.hasMany(Outcome),
-});
-
-const Outcome = ModelBase.extend({
-  tableName: 'outcomes',
-  users: () => this.belongsTo(User),
-  outcome_types: () => this.belongsTo(Outcome_Type)
-});
-
-const Outcome_Type = ModelBase.extend({
-  tableName: 'outcome_types',
-  outcomes: () => this.hasMany(Outcome)
-});
+const User = require('../models/User')
+const Outcome = require('../models/Outcome')
+const Outcome_Type = require('../models/Outcome_Type')
 
 const add = (request, response) => {
   const text = request.body.text.split(' ');
@@ -52,7 +38,6 @@ const check = (request, response) => {
   const text = request.body.text.split(' ');
   const type = textCleaner(text[0]);
   const user = textCleaner(text[1]);
-  console.log(user);
 
   new User({slack_id: user})
     .fetch()
