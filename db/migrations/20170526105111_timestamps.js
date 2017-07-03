@@ -10,7 +10,8 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.table('outcomes', (table) => {
-      table.dropColumn('timestamps');
+      table.dropColumn('created_at');
+      table.dropColumn('updated_at');
     })
   ])
 };

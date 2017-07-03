@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    knext.schema.table('users', function (table) {
+    knex.schema.table('users', function (table) {
       table.renameColumn('slack_id', 'userID')
       table.dropColumn('user_id')
     })
