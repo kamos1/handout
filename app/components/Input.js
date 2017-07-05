@@ -17,13 +17,18 @@ export default class Input extends Component {
   render() {
     return (
       <div>
-        <input type='text'
+        <input className='text-box'
+          type='text'
           value={this.state.username}
           placeholder='Enter your username'
           onChange={(event) => {
             this.setState({username: event.target.value})
           }}/>
-        <input type='submit' onClick={() => this.handleInput()} name='Submit'/>
+        <input className='submit-btn'
+          type='submit'
+          name='Submit'
+          onClick={() => this.handleInput()}
+        />
       </div>
     )
   }
