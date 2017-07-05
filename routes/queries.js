@@ -7,7 +7,7 @@ const User = require('../models/User')
 const Outcome = require('../models/Outcome')
 const Outcome_Type = require('../models/Outcome_Type')
 
-const add = (request, response) => {
+const addOutcome = (request, response) => {
   const text = request.body.text.split(' ');
   const url = request.response_url;
 
@@ -34,7 +34,7 @@ const add = (request, response) => {
         .catch((error) => response.status(500).send(error))
 }
 
-const check = (request, response) => {
+const checkOutcomes = (request, response) => {
   const text = request.body.text.split(' ');
   const type = textCleaner(text[0]);
   const user = textCleaner(text[1]);
@@ -48,7 +48,7 @@ const check = (request, response) => {
 }
 
 const getWins = (request, response) => {
-  const user = request.query.username;
+  const user = request.params.username;
   const type = 'win';
 
   new User({username: user})
@@ -60,7 +60,7 @@ const getWins = (request, response) => {
 }
 
 const getLosses = (request, response) => {
-  const user = request.query.username;
+  const user = request.params.username;
   const type = 'loss';
 
   new User({username: user})
@@ -72,8 +72,8 @@ const getLosses = (request, response) => {
 }
 
 module.exports = {
-  add: add,
-  check: check,
+  addOutcome: addOutcome,
+  checkOutcomes: checkOutcomes,
   getWins: getWins,
   getLosses: getLosses
 }

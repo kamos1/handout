@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Input from './Input'
 
 export default class App extends Component {
@@ -11,7 +12,7 @@ export default class App extends Component {
   }
 
   fetchWins(username){
-    fetch(`/getWins?username=${username}`, {
+    fetch(`/api/v1/user/${username}/getWins`, {
             method: 'GET',
           })
           .then(resp => (resp.json()))
@@ -20,7 +21,7 @@ export default class App extends Component {
   }
 
   fetchLosses(username){
-    fetch(`/getLosses?username=${username}`, {
+    fetch(`/api/v1/user/${username}/getLosses`, {
             method: 'GET',
           })
           .then(resp => (resp.json()))
@@ -31,10 +32,10 @@ export default class App extends Component {
   render() {
     return (
       <section className='main'>
-        <div>handOUT</div>
+        <h1 className='title'>handOUT</h1>
         <Input fetchWins={this.fetchWins.bind(this)} fetchLosses={this.fetchLosses.bind(this)}/>
-        <h1>{this.state.wins}</h1>
-        <h1>{this.state.losses}</h1>
+        <h1 className='output'>{this.state.wins}</h1>
+        <h1 className='output'>{this.state.losses}</h1>
       </section>
     );
   }
