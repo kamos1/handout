@@ -1,6 +1,6 @@
 # Application Name: Handout
 ## Overview:
-Handout is a slackbot that I created for my module 3 personal project. It allows users on Slack to give one another a win or loss for something they have done. The backend is built with Express, Knex and Postgres. The backend stores the user's username and the number of wins and losses they have.  Using the predefined slash commands users can retrieve the number of wins and losses they have. The frontend is built with React. It gives the user an additional way to look up their win and loss count as well as looking at other user's win and loss count. If you would like to test it out for yourself, my username is @kej,  the commands are below and the link to join the Slack team is here. 
+Handout is a slackbot that I created for my module 3 personal project. It allows users on Slack to give one another a win or loss for something they have done. The backend is built with Express, Knex and Postgres. The backend stores the user's username and the number of wins and losses they have.  Using the predefined slash commands users can retrieve the number of wins and losses they have. The frontend is built with React. It gives the user an additional way to look up their win and loss count as well as looking at other user's win and loss count. If you would like to test it out for yourself, my username is @kej,  the commands are below and the link to join the Slack team is [here](https://join.slack.com/winslow-hq/shared_invite/MjA4MzY1MTQyODgzLTE0OTkyOTQzNjAtMDI2MzE5YjQwYg). 
 
 Slash Commands
 
