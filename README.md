@@ -1,15 +1,24 @@
 # Application Name: Handout
 ## Overview:
-Handout is a slackbot built with Express and Postgresql for my personal project in Module 3 while at Turing School of Software and Design. It allows users on Slack to publicly praise one another and publicly shame one another, because who hasn't taken a couple losses in their day... Users can also check to see how many wins and losses they have.
+Handout is a slackbot that I created for my module 3 personal project. It allows users on Slack to jokingly give one another a win or loss for something they have done. The backend is built with Express, Knex, and Postgres. The backend stores the username and the number of wins and losses associated with it.  Using the predefined slash commands users can retrieve the number of wins and losses they have. If you would like to test it out for yourself, my username is @keji,  the commands are below and the link to join the Slack team is  [here](https://join.slack.com/winslow-hq/shared_invite/MjA4MzY1MTQyODgzLTE0OTkyOTQzNjAtMDI2MzE5YjQwYg). 
+
+[A quick demo](http://recordit.co/KN9dLoaANl)
 
 Slash Commands
-- give someone a win or loss
-  - /give win/loss @username
-- check how many wins or losses you have
-  - /count wins/losses
-- check how many wins or losses someone else has
-  - /check wins/losses @username
 
+give someone a win
+
+ - /give win @username
+
+give someone a loss
+
+ - /give loss @username
+
+check how many wins or losses a user has
+
+ - /check wins @username
+
+ - /check losses @username
 
 ## Installation and Setup
 - git clone
