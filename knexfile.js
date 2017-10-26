@@ -2,7 +2,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/slack',
+    connection: 'postgres://localhost/handout',
     migrations: {
       directory: './db/migrations'
     },
@@ -14,12 +14,12 @@ module.exports = {
 
   test: {
     client: 'pg',
-    connection: process.env.DATABASE_URL || 'postgres://localhost/slack_test',
+    connection: process.env.DATABASE_URL || 'postgres://localhost/handout_test',
     migrations: {
       directory: './db/migrations'
     },
     seeds: {
-      directory: './db/seeds/dev'
+      directory: './db/seeds/test'
     },
     useNullAsDefault: true
   },

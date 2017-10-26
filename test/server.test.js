@@ -32,14 +32,11 @@ describe('Routes', () => {
 describe('API Routes', () => {
 
   beforeEach((done) => {
-    knex.migrate.rollback()
+    knex.migrate.latest()
     .then(() => {
-      knex.migrate.latest()
+      knex.seed.run()
       .then(() => {
-        knex.seed.run()
-        .then(() => {
-          done();
-        })
+        done();
       })
     })
   });

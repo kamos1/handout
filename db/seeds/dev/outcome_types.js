@@ -5,8 +5,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('outcome_types').insert([
-        {id: 1, name: 'win'},
-        {id: 2, name: 'loss'}
+        {id: 1, type: 'win'},
+        {id: 2, type: 'loss'}
       ]);
     });
 }
