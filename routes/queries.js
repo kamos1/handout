@@ -25,7 +25,7 @@ const addOutcome = (request, response) => {
     text: `*${slackId} recieved a ${type}*`,
   };
 
-  User.findOrCreate({ slack_id: slackId, username, user_id: userId })
+  User.findOrCreate({ slack_id: slackId, username: username, user_id: userId })
     .then((user) => {
       Outcome.create({ user_id: user.id, outcome_types_id: typeCheck(type) });
     })

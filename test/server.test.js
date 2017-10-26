@@ -31,7 +31,21 @@ describe('Routes', () => {
 
 describe('API Routes', () => {
 
-   describe('POST /add', () => {
+  beforeEach((done) => {
+    knex.migrate.rollback()
+    .then(() => {
+      knex.migrate.latest()
+      .then(() => {
+        knex.seed.run()
+        .then(() => {
+          done();
+        })
+      })
+    })
+  });
+
+
+  describe('POST /add', () => {
     it('should add a win', (done) => {
       chai.request(server)
       .post('/add')
