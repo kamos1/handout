@@ -31,7 +31,7 @@ describe('Routes', () => {
 
 describe('API Routes', () => {
 
-  afterEach((done) => {
+  beforeEach((done) => {
     knex.migrate.rollback()
     .then(() => {
       knex.migrate.latest()
