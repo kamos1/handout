@@ -1,14 +1,14 @@
 const typeCheck = (type) => {
-  let outcome_type_id;
+  let outcomeTypeId;
   switch (type) {
     case 'win':
-      return outcome_type_id = 1
+      return outcomeTypeId = 1
     case 'wins':
-      return outcome_type_id = 1
+      return outcomeTypeId = 1
     case 'loss':
-      return outcome_type_id = 2
+      return outcomeTypeId = 2
     case 'losses':
-      return outcome_type_id = 2
+      return outcomeTypeId = 2
     default:
       return 'not a type'
   }

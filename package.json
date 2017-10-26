@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "webpack --config ./webpack.deployment.config.js",
-    "build-dev": "webpack --config ./webpack.config.js",
+    "build-dev": "webpack --config ./webpack.config.js && nodemon server.js",
     "dev": "webpack-dev-server --hot --inline",
     "start": "npm run build && nodemon server.js",
     "test": "NODE_ENV=test mocha"
@@ -38,6 +38,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "style-loader": "^0.18.2",
+    "victory": "^0.21.5",
     "webpack": "^2.6.1"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "bookshelf-modelbase": "^2.10.4",
     "chai": "^4.0.0",
     "chai-http": "^3.0.0",
+    "eslint": "^4.2.0",
     "express": "^4.15.3",
     "knex": "^0.13.0",
     "locus": "^2.0.1",

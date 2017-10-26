@@ -16,17 +16,4 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  resolve: {
-    extensions: ['.js', '.css']
-  },
-  devtool: 'cheap-eval-source-map',
-  devServer: {
-    contentBase: './dist',
-    hot: true
-  },
-  plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
 };

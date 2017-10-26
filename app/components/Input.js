@@ -16,11 +16,12 @@ export default class Input extends Component {
 
   render() {
     return (
-      <div>
+      <section>
+        <h2>Enter a username to find the number of wins and losses</h2>
         <input className='text-box'
           type='text'
           value={this.state.username}
-          placeholder='Enter your username'
+          placeholder='Enter a username'
           onChange={(event) => {
             this.setState({username: event.target.value})
           }}/>
@@ -29,7 +30,7 @@ export default class Input extends Component {
           name='Submit'
           onClick={() => this.handleInput()}
         />
-      </div>
+      </section>
     )
   }
 }

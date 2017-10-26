@@ -1,9 +1,9 @@
 const ModelBase = require('../db/modelbase');
-const Outcome = require('./Outcome')
+const Outcome = require('./Outcome');
 
-const Outcome_Type = ModelBase.extend({
+const outcomeType = ModelBase.extend({
   tableName: 'outcome_types',
-  outcomes: () => this.hasMany(Outcome)
+  outcomes: () => this.hasMany(Outcome),
 });
 
-module.exports = Outcome_Type;
+module.exports = outcomeType;
