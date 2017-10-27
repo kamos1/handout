@@ -3,14 +3,14 @@ import * as Victory from 'victory';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 import Input from './Input';
-
+import { Chart } from './Chart';
 
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
       wins: '',
-      losses: '',
+      losses: ''
     };
     this.fetchWins = this.fetchWins.bind(this);
     this.fetchLosses = this.fetchLosses.bind(this);
@@ -34,37 +34,14 @@ export default class App extends Component {
       .catch(error => ({ error }));
   }
 
-
   render() {
-    const count = [
-      {type: 'wins', count: this.state.wins},
-      {type: 'losses', count: this.state.losses}
-    ]
     return (
       <section className="main">
-        <h1 className="title">handOUT</h1>
+        <h1 className="title">HANDOUT</h1>
         <Input fetchWins={this.fetchWins} fetchLosses={this.fetchLosses}/>
-        <h1 className="output">Wins count: {this.state.wins}</h1>
-        <h1 className="output">Losses count: {this.state.losses}</h1>
-        <div className="chart">
-          <VictoryChart
-            domainPadding={50}
-            theme={VictoryTheme.material}
-          >
-            <VictoryAxis
-              tickValues = {[1, 2]}
-              tickFormat={["wins", "losses"]}
-            />
-            <VictoryAxis
-              dependentAxis={true}
-            />
-            <VictoryBar 
-              data={count} 
-              x="type"
-              y="count"
-            />          
-          </VictoryChart>
-        </div>
+        <h2 className="output">Wins count: {this.state.wins}</h2>
+        <h2 className="output">Losses count: {this.state.losses}</h2>
+        <Chart state={this.state}/>
       </section>
     );
   }

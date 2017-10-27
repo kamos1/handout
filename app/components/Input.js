@@ -17,7 +17,7 @@ export default class Input extends Component {
   render() {
     return (
       <section>
-        <h2>Enter a username to find the number of wins and losses</h2>
+        <h3>Enter a username to find the number of wins and losses</h3>
         <input className='text-box'
           type='text'
           value={this.state.username}
