@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Input extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       username: ''
@@ -33,4 +34,9 @@ export default class Input extends Component {
       </section>
     )
   }
+}
+
+Input.propTypes = {
+  fetchWins: PropTypes.func,
+  fetchLosses: PropTypes.func
 }

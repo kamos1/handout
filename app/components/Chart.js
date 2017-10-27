@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 export const Chart = (props) => {
@@ -33,3 +34,7 @@ export const Chart = (props) => {
     ) 
   }
 };
+
+Chart.propTypes = {
+  props: PropTypes.object
+}
