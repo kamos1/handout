@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import * as Victory from 'victory';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 import Input from './Input';
 import { Chart } from './Chart';

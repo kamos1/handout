@@ -5,10 +5,8 @@ body {
 .main {
   text-align: center;
 }
-
-div {
-  margin: 0 auto;
-  max-width: 50%;
+label {
+  font-size: 20px;
 }
 
 .text-box {
@@ -22,3 +20,9 @@ div {
   font-size: 30px;
   background-color: #455a63;
 }
+
+div {
+  margin: 0 auto;
+  max-width: 50%;
+}
+
