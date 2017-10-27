@@ -41,7 +41,6 @@ describe('API Routes', () => {
     })
   });
 
-
   describe('POST /add', () => {
     it('should add a win', (done) => {
       chai.request(server)
@@ -107,20 +106,88 @@ describe('API Routes', () => {
         user_id:'U5GFS4CAE',
         user_name:'keji',
         command:'/add',
-
         text:'<@U5GFS4CAE|keji>',
         response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
       })
       .end((err, response) => {
         response.should.have.status(500)
-
         done()
       })
     })
   })
 
   describe('POST /check', () => {
-    it('should return number of losses', (done) => {
+    it('should return 0 wins', (done) => {
+      chai.request(server)
+      .post('/check')
+      .send({
+        token:'q3cp86g0nrZih5bETlYfNrnH',
+        team_id:'T5HA0SULE',
+        team_domain:'winslow-hq',
+        channel_id:'C5FUGQBLH',
+        channel_name:'general',
+        user_id:'U5GFS4CAE',
+        user_name:'keji',
+        command:'/check',
+        text:'wins <@U5GFS4CAE|keji>',
+        response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
+      })
+      .end((err, response) => {
+        response.should.have.status(200)
+        response.body.should.be.a('object')
+        response.body.should.have.property('text')
+        response.body.text.should.equal('*<@U5GFS4CAE|keji> has 0 wins*')
+        done()
+      })
+    })
+
+    it('should return 1 win', (done) => {
+      chai.request(server)
+      .post('/add')
+      .send({
+        token:'q3cp86g0nrZih5bETlYfNrnH',
+        team_id:'T5HA0SULE',
+        team_domain:'winslow-hq',
+        channel_id:'C5FUGQBLH',
+        channel_name:'general',
+        user_id:'U5GFS4CAE',
+        user_name:'keji',
+        command:'/add',
+        text:'win <@U5GFS4CAE|keji>',
+        response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
+      })
+      .end((err, response) => {
+        response.should.have.status(200)
+        response.body.should.be.a('object')
+        response.body.should.have.property('response_type')
+        response.body.response_type.should.equal('in_channel')
+        response.body.should.have.property('text')
+        response.body.text.should.equal('*<@U5GFS4CAE|keji> recieved a win*')
+        chai.request(server)
+        .post('/check')
+        .send({
+          token:'q3cp86g0nrZih5bETlYfNrnH',
+          team_id:'T5HA0SULE',
+          team_domain:'winslow-hq',
+          channel_id:'C5FUGQBLH',
+          channel_name:'general',
+          user_id:'U5GFS4CAE',
+          user_name:'keji',
+          command:'/check',
+          text:'wins <@U5GFS4CAE|keji>',
+          response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
+        })
+        .end((err, response) => {
+          response.should.have.status(200)
+          response.body.should.be.a('object')
+          response.body.should.have.property('text')
+          response.body.text.should.equal('*<@U5GFS4CAE|keji> has 1 wins*')
+          done()
+        })
+      }) 
+    })
+
+    it('should return 0 losses', (done) => {
       chai.request(server)
       .post('/check')
       .send({
@@ -144,9 +211,9 @@ describe('API Routes', () => {
       })
     })
 
-    it('should return number of wins', (done) => {
+    it('should return 1 loss', (done) => {
       chai.request(server)
-      .post('/check')
+      .post('/add')
       .send({
         token:'q3cp86g0nrZih5bETlYfNrnH',
         team_id:'T5HA0SULE',
@@ -155,17 +222,39 @@ describe('API Routes', () => {
         channel_name:'general',
         user_id:'U5GFS4CAE',
         user_name:'keji',
-        command:'/check',
-        text:'wins <@U5GFS4CAE|keji>',
+        command:'/add',
+        text:'loss <@U5GFS4CAE|keji>',
         response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
       })
       .end((err, response) => {
         response.should.have.status(200)
         response.body.should.be.a('object')
+        response.body.should.have.property('response_type')
+        response.body.response_type.should.equal('in_channel')
         response.body.should.have.property('text')
-        response.body.text.should.equal('*<@U5GFS4CAE|keji> has 0 wins*')
-        done()
-      })
+        response.body.text.should.equal('*<@U5GFS4CAE|keji> recieved a loss*')
+        chai.request(server)
+        .post('/check')
+        .send({
+          token:'q3cp86g0nrZih5bETlYfNrnH',
+          team_id:'T5HA0SULE',
+          team_domain:'winslow-hq',
+          channel_id:'C5FUGQBLH',
+          channel_name:'general',
+          user_id:'U5GFS4CAE',
+          user_name:'keji',
+          command:'/check',
+          text:'losses <@U5GFS4CAE|keji>',
+          response_url:'https://hooks.slack.com/commands/T5HA0SULE/188472685904/TIOHVkBRd20wGrazSi81Xhpm'
+        })
+        .end((err, response) => {
+          response.should.have.status(200)
+          response.body.should.be.a('object')
+          response.body.should.have.property('text')
+          response.body.text.should.equal('*<@U5GFS4CAE|keji> has 1 losses*')
+          done()
+        })
+      }) 
     })
   })
 })
