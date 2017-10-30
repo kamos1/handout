@@ -34,16 +34,4 @@ describe('Chart component tests', () => {
 
     expect(wrapper.find('VictoryChart').length).toEqual(0);
   })
-
-  // it('should update username state value', () => {
-  //   const mock = jest.fn();
-  //   const wrapper = mount(<Chart fetchWins={() => mock} fetchLosses={() => mock}/>);
-  //   const input = wrapper.find('.text-box');
-  //   const button = wrapper.find('.submit-btn');
-
-  //   input.simulate('change', {target: {value: 'keji'}});
-  //   expect(wrapper.state('username')).toEqual('keji');
-  //   button.simulate('click');
-  //   expect(wrapper.state('username')).toEqual('');
-  // })
 })
