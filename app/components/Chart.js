@@ -9,10 +9,10 @@ export const Chart = (props) => {
   ]
 
   if (!props.state.wins && !props.state.losses) {
-    return <div>No wins or losses!</div>
+    return <div className='no-props'>No wins or losses!</div>
   } else {
     return (
-      <div>
+      <div className='with-props'>
         <VictoryChart
           domainPadding={50}
           theme={VictoryTheme.material}
